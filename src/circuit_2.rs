@@ -4,7 +4,7 @@ use halo2_proofs::{
     plonk::{Circuit, ConstraintSystem, Error},
 };
 
-use crate::square::square_chip::{Circuit1Config, SquareChip};
+use super::chips::cube_chip::{Circuit1Config, CubeChip};
 
 struct Circuit1<F: FieldExt> {
     a: Value<F>,
@@ -22,7 +22,7 @@ impl<F: FieldExt> Circuit<F> for Circuit1<F> {
     }
 
     fn configure(meta: &mut ConstraintSystem<F>) -> Self::Config {
-        SquareChip::configure(meta)
+        CubeChip::configure(meta)
     }
 
     fn synthesize(
@@ -30,7 +30,7 @@ impl<F: FieldExt> Circuit<F> for Circuit1<F> {
         config: Self::Config,
         mut layouter: impl Layouter<F>,
     ) -> Result<(), Error> {
-        let chip = SquareChip::construct(config);
+        let chip = CubeChip::construct(config);
 
         let (_, b) = chip.load(layouter.namespace(|| ""), self.a)?;
 
@@ -47,11 +47,11 @@ mod tests {
     use super::Circuit1;
 
     #[test]
-    fn test_square() {
+    fn test_circuit_2() {
         let k = 3;
 
         let a = Fp::from(2);
-        let b = a * a;
+        let b = a * a * a;
         // let b = Fp::from(4);
 
         let circuit = Circuit1 { a: Value::known(a) };
