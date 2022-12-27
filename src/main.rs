@@ -5,7 +5,7 @@ use halo2_proofs::{circuit::Value, dev::MockProver, pasta::Fp};
 use halo2_examples::circuit_1;
 use halo2_examples::circuit_2;
 
-fn test_circuit_1(input_num: u64) {
+fn run_circuit_1(input_num: u64) {
     let k = 3;
 
     let a = Fp::from(input_num);
@@ -17,10 +17,10 @@ fn test_circuit_1(input_num: u64) {
 
     let prover = MockProver::run(k, &circuit, vec![public_inputs.clone()]).unwrap();
     prover.assert_satisfied();
-    println!("public_input: {:?}", public_inputs);
+    println!("Circuit 1 Proven Output: {:?}", public_inputs);
 }
 
-fn test_circuit_2(input_num: u64) {
+fn run_circuit_2(input_num: u64) {
     let k = 3;
 
     let a = Fp::from(input_num);
@@ -32,14 +32,14 @@ fn test_circuit_2(input_num: u64) {
 
     let prover = MockProver::run(k, &circuit, vec![public_inputs.clone()]).unwrap();
     prover.assert_satisfied();
-    println!("public_input: {:?}", public_inputs);
+    println!("Circuit 2 Proven Output: {:?}", public_inputs);
 }
 
 fn main() {
     let input = get_user_input();
 
-    test_circuit_1(input);
-    test_circuit_2(input);
+    run_circuit_1(input);
+    run_circuit_2(input);
 }
 fn get_user_input() -> u64 {
     let mut input_string = String::new();
