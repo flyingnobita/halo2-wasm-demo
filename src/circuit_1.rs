@@ -6,8 +6,8 @@ use halo2_proofs::{
 
 use super::chips::square_chip::{Circuit1Config, SquareChip};
 
-struct Circuit1<F: FieldExt> {
-    a: Value<F>,
+pub struct Circuit1<F: FieldExt> {
+    pub a: Value<F>,
 }
 
 impl<F: FieldExt> Circuit<F> for Circuit1<F> {
@@ -60,6 +60,6 @@ mod tests {
 
         let prover = MockProver::run(k, &circuit, vec![public_inputs.clone()]).unwrap();
         prover.assert_satisfied();
-        print!("public_input: {:?}", public_inputs);
+        println!("public_input: {:?}", public_inputs);
     }
 }

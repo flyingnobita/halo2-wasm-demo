@@ -1,3 +1,3 @@
 mod chips;
-mod circuit_1;
-mod circuit_2;
+pub mod circuit_1;
+pub mod circuit_2;

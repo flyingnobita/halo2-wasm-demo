@@ -6,11 +6,11 @@ use halo2_proofs::{
 
 use super::chips::cube_chip::{Circuit1Config, CubeChip};
 
-struct Circuit1<F: FieldExt> {
-    a: Value<F>,
+pub struct Circuit2<F: FieldExt> {
+    pub a: Value<F>,
 }
 
-impl<F: FieldExt> Circuit<F> for Circuit1<F> {
+impl<F: FieldExt> Circuit<F> for Circuit2<F> {
     type Config = Circuit1Config;
 
     type FloorPlanner = SimpleFloorPlanner;
@@ -44,7 +44,7 @@ impl<F: FieldExt> Circuit<F> for Circuit1<F> {
 mod tests {
     use halo2_proofs::{circuit::Value, dev::MockProver, pasta::Fp};
 
-    use super::Circuit1;
+    use super::Circuit2;
 
     #[test]
     fn test_circuit_2() {
@@ -54,12 +54,12 @@ mod tests {
         let b = a * a * a;
         // let b = Fp::from(4);
 
-        let circuit = Circuit1 { a: Value::known(a) };
+        let circuit = Circuit2 { a: Value::known(a) };
 
         let public_inputs = vec![b];
 
         let prover = MockProver::run(k, &circuit, vec![public_inputs.clone()]).unwrap();
         prover.assert_satisfied();
-        print!("public_input: {:?}", public_inputs);
+        println!("public_input: {:?}", public_inputs);
     }
 }
