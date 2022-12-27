@@ -45,7 +45,6 @@ impl<F: FieldExt> CubeChip<F> {
 
             let selector = meta.query_selector(col_selector);
             let a = meta.query_advice(col_a, Rotation::cur());
-            // let b = meta.query_advice(col_b, Rotation::cur());
             let b = meta.query_advice(col_b, Rotation::cur());
 
             vec![selector * (a.clone() * a.clone() * a - b)]

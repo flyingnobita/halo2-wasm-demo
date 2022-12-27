@@ -52,7 +52,6 @@ mod tests {
 
         let a = Fp::from(2);
         let b = a * a;
-        // let b = Fp::from(4);
 
         let circuit = Circuit1 { a: Value::known(a) };
 
