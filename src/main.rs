@@ -2,8 +2,8 @@ use std::io;
 
 use halo2_proofs::{circuit::Value, dev::MockProver, pasta::Fp};
 
-use halo2_examples::circuit_1;
-use halo2_examples::circuit_2;
+use halo2_playground_circuits::circuit_1;
+use halo2_playground_circuits::circuit_2;
 
 fn run_circuit_1(input_num: u64) {
     let k = 3;

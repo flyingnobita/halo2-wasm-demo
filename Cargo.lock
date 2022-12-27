@@ -144,6 +144,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "halo2_playground"
+version = "0.1.0"
+dependencies = [
+ "halo2_proofs",
+]
+
+[[package]]
 name = "halo2_proofs"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -224,13 +231,6 @@ name = "pin-project-lite"
 version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e0a7ae3ac2f1173085d398531c705756c94a4c56843785df85a60c1a0afac116"
-
-[[package]]
-name = "playground"
-version = "0.1.0"
-dependencies = [
- "halo2_proofs",
-]
 
 [[package]]
 name = "proc-macro2"

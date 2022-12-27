@@ -7,7 +7,7 @@
     {
       "type": "lldb",
       "request": "launch",
-      "name": "Debug unit tests in library 'halo2_examples'",
+      "name": "Debug unit tests in library 'halo2_playground_circuits'",
       "cargo": {
         "args": ["test", "--no-run", "--lib", "--package=playground"],
         "filter": {

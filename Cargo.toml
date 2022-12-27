@@ -1,10 +1,10 @@
 [package]
-name = "playground"
+name = "halo2_playground"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-name = "halo2_examples"
+name = "halo2_playground_circuits"
 path = "src/lib.rs"
 
 [dependencies]
