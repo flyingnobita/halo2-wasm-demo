@@ -1,0 +1,27 @@
+[package]
+name = "halo2_playground"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "halo2_playground_circuits"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+halo2_proofs = "0.2.0"
+plotters = { version = "0.3.0", optional = true }
+serde = { version = "1.0.138", features = ["derive"] }
+serde_json = "1.0.82"
+tabbycat = { version = "0.1", features = ["attributes"], optional = true }
+rand_core = { version = "0.6", default-features = false, features = ["getrandom"] }
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+getrandom = { version = "0.2", features = ["js"]}
+wasm-bindgen = { version = "0.2", features = ["serde-serialize"]}
+console_error_panic_hook = "0.1.7"
+rayon = "1.5"
+wasm-bindgen-rayon = { version = "1.0"}
+web-sys = { version = "0.3", features = ["Request", "Window", "Response"] }
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
