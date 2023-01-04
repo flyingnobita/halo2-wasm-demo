@@ -1,9 +1,14 @@
+use std::fs::File;
 use std::io;
 
+use halo2_proofs::pasta::EqAffine;
+use halo2_proofs::poly::commitment::Params;
 use halo2_proofs::{circuit::Value, dev::MockProver, pasta::Fp};
 
 use circuits::circuits::circuits::circuit_1::Circuit1;
 use circuits::circuits::circuits::circuit_2::Circuit2;
+
+const K: u32 = 14;
 
 fn run_circuit_1(input_num: u64) {
     let k = 3;
@@ -40,7 +45,10 @@ fn main() {
 
     run_circuit_1(input);
     run_circuit_2(input);
+
+    write_params()
 }
+
 fn get_user_input() -> u64 {
     let mut input_string = String::new();
     println!("Enter a positive integer");
@@ -59,4 +67,10 @@ fn get_user_input() -> u64 {
 
     println!("User inputed: {}", input_int);
     input_int
+}
+
+fn write_params() {
+    let mut params_file = File::create("params.bin").unwrap();
+    let params: Params<EqAffine> = Params::new(K);
+    params.write(&mut params_file).unwrap();
 }
