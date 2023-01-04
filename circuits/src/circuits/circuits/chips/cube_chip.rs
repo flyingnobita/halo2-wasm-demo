@@ -7,7 +7,7 @@ use halo2_proofs::{
 use std::marker::PhantomData;
 
 #[derive(Debug, Clone)]
-pub struct Circuit1Config {
+pub struct CubeChipConfig {
     pub col_a: Column<Advice>,
     pub col_b: Column<Advice>,
     pub col_instance: Column<Instance>,
@@ -16,19 +16,19 @@ pub struct Circuit1Config {
 
 #[derive(Debug, Clone)]
 pub struct CubeChip<F: FieldExt> {
-    config: Circuit1Config,
+    config: CubeChipConfig,
     _marker: PhantomData<F>,
 }
 
 impl<F: FieldExt> CubeChip<F> {
-    pub fn construct(config: Circuit1Config) -> Self {
+    pub fn construct(config: CubeChipConfig) -> Self {
         Self {
             config,
             _marker: PhantomData,
         }
     }
 
-    pub fn configure(meta: &mut ConstraintSystem<F>) -> Circuit1Config {
+    pub fn configure(meta: &mut ConstraintSystem<F>) -> CubeChipConfig {
         let col_a = meta.advice_column();
         let col_b = meta.advice_column();
         let col_selector = meta.selector();
@@ -50,7 +50,7 @@ impl<F: FieldExt> CubeChip<F> {
             vec![selector * (a.clone() * a.clone() * a - b)]
         });
 
-        Circuit1Config {
+        CubeChipConfig {
             col_a,
             col_b,
             col_selector,

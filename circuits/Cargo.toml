@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [lib]
-name = "halo2_playground_circuits"
+name = "circuits"
 path = "src/lib.rs"
 crate-type = ["cdylib", "rlib"]
 

@@ -4,14 +4,14 @@ use halo2_proofs::{
     plonk::{Circuit, ConstraintSystem, Error},
 };
 
-use super::chips::cube_chip::{Circuit1Config, CubeChip};
+use super::chips::cube_chip::{CubeChip, CubeChipConfig};
 
 pub struct Circuit2<F: FieldExt> {
     pub a: Value<F>,
 }
 
 impl<F: FieldExt> Circuit<F> for Circuit2<F> {
-    type Config = Circuit1Config;
+    type Config = CubeChipConfig;
 
     type FloorPlanner = SimpleFloorPlanner;
 
