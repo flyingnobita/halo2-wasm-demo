@@ -6,6 +6,7 @@ use halo2_proofs::{
 
 use super::chips::square_chip::{SquareChip, SquareChipConfig};
 
+#[derive(Default, Clone)]
 pub struct Circuit1<F: FieldExt> {
     pub a: Value<F>,
 }
