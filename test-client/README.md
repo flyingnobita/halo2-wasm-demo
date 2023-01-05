@@ -1,3 +1,9 @@
+## Install
+
+```bash
+yarn
+```
+
 ## Link Package (For Development)
 
 ```bash

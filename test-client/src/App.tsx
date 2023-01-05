@@ -18,14 +18,16 @@ function App() {
     // Proving
     const start = performance.now();
     const proof = await workerApi.prove(BigInt(2));
-    const t_prove = performance.now() - start;
-    console.log("t_prove: ", t_prove);
+    const prove_finish = performance.now();
+    const t_prove = prove_finish - start;
+    console.log("Time to prove (s): ", t_prove / 1000);
     console.log("test.prove(): ", proof);
 
     // Verifying
     const verification = await workerApi.verify(BigInt(2), proof);
-    const t_verify_play = performance.now() - t_prove;
-    console.log("t_verify_play: ", t_verify_play);
+    const verify_finish = performance.now();
+    const t_verify = verify_finish - prove_finish;
+    console.log("Time to verify (s): ", t_verify / 1000);
     console.log("Verification", verification);
   }
 
