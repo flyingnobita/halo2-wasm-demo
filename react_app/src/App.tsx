@@ -1,26 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import "./App.css";
 import { wrap } from "comlink";
 
 import {
   Body,
-  Button,
   Container,
-  Image,
-  DivFlex,
-  DivPassword,
-  LabelPassword,
-  InputPassword,
-  DivStatus,
   Title,
-  BottomText,
-  PriceText,
   Link,
   LinkLogoContainer,
   LinkLogo,
   DivScrollable,
-  DivTooltip,
-  DivTooltipText,
   Pre,
   Details,
   Summary,
@@ -32,21 +21,20 @@ import {
   DivFlexFormContainer,
   DivFlexForm,
   ZKDetailStatus,
-  Textarea,
-  ToggleWrapper,
-  ToggleLabel,
-  Toggle,
-  ToggleLabelExternal,
-  ToggleContainer,
 } from "./components";
 
 import githubLogo from "./assets/images/GitHub-Mark-120px-plus.png";
 
 function App() {
   const [zkStatus, setZkStatus] = useState("");
+  const [threadPoolSize, setThreadPoolSize] = useState("1");
   const [proverInput, setProverInput] = useState("2");
   const [verifierInput, setVerifierInput] = useState("4");
   const [proof, setProof] = useState(null);
+
+  useEffect(() => {
+    setThreadPoolSize(navigator.hardwareConcurrency.toString());
+  }, []);
 
   const showZkStatus = (inputStatus: string) => {
     setZkStatus(inputStatus);
@@ -63,7 +51,10 @@ function App() {
     console.log("proverInput: " + proverInput);
     const start = performance.now();
     console.log("Starting prove()...");
-    const proof = await workerApi.prove(BigInt(proverInput));
+    const proof = await workerApi.prove(
+      BigInt(proverInput),
+      parseInt(threadPoolSize)
+    );
     setProof(proof);
     const prove_finish = performance.now();
     const t_prove = prove_finish - start;
@@ -77,7 +68,11 @@ function App() {
   async function verify() {
     showZkStatus("Verifying proof...");
     console.log("verifierInput: " + verifierInput);
-    const verification = await workerApi.verify(BigInt(verifierInput), proof);
+    const verification = await workerApi.verify(
+      BigInt(verifierInput),
+      proof,
+      parseInt(threadPoolSize)
+    );
     const verify_finish = performance.now();
     // const t_verify = verify_finish - prove_finish;
     // console.log("Time to verify (s): ", t_verify / 1000);
@@ -117,6 +112,16 @@ function App() {
     }
   };
 
+  const handleThreadPoolSizeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    event.persist();
+    const re = /^[0-9\b]+$/;
+    if (event.target.value === "" || re.test(event.target.value)) {
+      setThreadPoolSize(event.target.value);
+    }
+  };
+
   return (
     <div className="App">
       <Container>
@@ -126,6 +131,16 @@ function App() {
             <Details>
               <Summary>Prove You Know The Square</Summary>
               <ZkDetails>
+                <DivFlexInputContainer>
+                  <label>
+                    Thread Pool Size (Change to 4 if running on Apple M1):{" "}
+                  </label>
+                  <DivFlexInput
+                    type="number"
+                    value={threadPoolSize}
+                    onChange={handleThreadPoolSizeChange}
+                  />
+                </DivFlexInputContainer>
                 <h2>Prover</h2>
                 <DivFlexFormContainer>
                   <DivFlexForm onSubmit={handleButtonProve}>

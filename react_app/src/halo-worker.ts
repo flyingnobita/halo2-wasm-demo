@@ -1,6 +1,6 @@
 import { expose } from 'comlink';
 
-async function prove(input: bigint) {
+async function prove(input: bigint, threadPoolSize: number) {
     // prepare parameters
     const params = await fetch_params();
     console.log("param length", params.length);
@@ -9,14 +9,13 @@ async function prove(input: bigint) {
     // start proving
     const multiThread = await import('halo2_playground');
     await multiThread.default();
-    // await multiThread.initThreadPool(navigator.hardwareConcurrency);  // Intel
-    await multiThread.initThreadPool(4);  // M1
+    await multiThread.initThreadPool(threadPoolSize);
     multiThread.init_panic_hook();
     const ret = multiThread.prove(input, params);
     return ret;
 }
 
-async function verify(input: bigint, proof: any) {
+async function verify(input: bigint, proof: any, threadPoolSize: number) {
     // prepare parameters
     const params = await fetch_params();
     console.log("param length", params.length);
@@ -25,8 +24,7 @@ async function verify(input: bigint, proof: any) {
     // start verification
     const multiThread = await import('halo2_playground');
     await multiThread.default();
-    // await multiThread.initThreadPool(navigator.hardwareConcurrency);  // Intel
-    await multiThread.initThreadPool(4);  // M1
+    await multiThread.initThreadPool(threadPoolSize);
     console.log("Starting verify()...")
     const ret = multiThread.verify(input, proof, params);
     return ret;
