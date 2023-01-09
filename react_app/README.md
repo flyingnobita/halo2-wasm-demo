@@ -9,6 +9,10 @@ yarn
 ### Link Package (For Development)
 
 ```bash
+# Remove halo2_playground fro package.json so changes will be picked up right
+# away during development
+yarn remove halo2_playground
+
 cd public/pkg
 yarn link
 
@@ -16,7 +20,7 @@ cd ../..  # in /react_app
 yarn link halo2_playground
 ```
 
-### Add Local Package (For Release w/o NPM)
+### Add Local Package (For Release w/o publishing package to NPM)
 
 ```bash
 yarn add ./public/pkg
