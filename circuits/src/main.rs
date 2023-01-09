@@ -104,17 +104,6 @@ fn run_circuit_2_mock(input_num: u64) {
     println!("Circuit 2 Verified Output: {:?}", public_inputs);
 }
 
-fn main() {
-    let input = get_user_input();
-
-    run_circuit_1(input);
-
-    run_circuit_1_mock(input);
-    run_circuit_2_mock(input);
-
-    write_params()
-}
-
 fn get_user_input() -> u64 {
     let mut input_string = String::new();
     println!("Enter a positive integer");
@@ -136,7 +125,21 @@ fn get_user_input() -> u64 {
 }
 
 fn write_params() {
-    let mut params_file = File::create("params.bin").unwrap();
+    let params_filename = "params.bin".to_string();
+    println!("Writing {}", params_filename);
+    let mut params_file = File::create(&params_filename).unwrap();
     let params: Params<EqAffine> = Params::new(K);
     params.write(&mut params_file).unwrap();
+    println!("Finished writing {}", params_filename);
+}
+
+fn main() {
+    let input = get_user_input();
+
+    run_circuit_1(input);
+
+    run_circuit_1_mock(input);
+    run_circuit_2_mock(input);
+
+    write_params()
 }
