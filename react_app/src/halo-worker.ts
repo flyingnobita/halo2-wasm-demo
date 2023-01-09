@@ -33,7 +33,10 @@ async function verify(input: bigint, proof: any) {
 }
 
 async function fetch_params() {
-    const response = await fetch('http://localhost:3000/params.bin');
+
+    const params_file = "https://raw.githubusercontent.com/flyingnobita/halo2-playground/master/react_app/public/params.bin"
+
+    const response = await fetch(params_file);
     const bytes = await response.arrayBuffer();
     const params = new Uint8Array(bytes);
     return params;
