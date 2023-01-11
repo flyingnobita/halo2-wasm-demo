@@ -11,9 +11,7 @@ use circuits::circuits::circuits::circuit_1::Circuit1;
 use circuits::circuits::circuits::circuit_2::Circuit2;
 use rand_core::OsRng;
 
-const K: u32 = 14;
-
-fn run_circuit_1(input_num: u64) {
+fn run_circuit_1(input_int: u64) {
     let k = 3;
     let params: Params<EqAffine> = Params::new(k);
 
@@ -26,7 +24,7 @@ fn run_circuit_1(input_num: u64) {
     println!("Successfully generated proving key");
 
     // prepare circuit
-    let a = Fp::from(input_num);
+    let a = Fp::from(input_int);
     let circuit = Circuit1 { a: Value::known(a) };
 
     // prepare instances
@@ -53,7 +51,7 @@ fn run_circuit_1(input_num: u64) {
     // Verify Proof
 
     // prepare instances
-    let public_inputs = vec![Fp::from(input_num * input_num)];
+    let public_inputs = vec![Fp::from(input_int * input_int)];
     let instance_slice = [&public_inputs.clone()[..]];
 
     // prepare strategy
@@ -74,10 +72,10 @@ fn run_circuit_1(input_num: u64) {
     println!("Verification: {:?}", verified);
 }
 
-fn run_circuit_1_mock(input_num: u64) {
+fn run_circuit_1_mock(input_int: u64) {
     let k = 3;
 
-    let a = Fp::from(input_num);
+    let a = Fp::from(input_int);
     let b = a * a;
 
     let circuit = Circuit1 { a: Value::known(a) };
@@ -89,10 +87,10 @@ fn run_circuit_1_mock(input_num: u64) {
     println!("Circuit 1 Verified Output: {:?}", public_inputs);
 }
 
-fn run_circuit_2_mock(input_num: u64) {
+fn run_circuit_2_mock(input_int: u64) {
     let k = 3;
 
-    let a = Fp::from(input_num);
+    let a = Fp::from(input_int);
     let b = a * a * a;
 
     let circuit = Circuit2 { a: Value::known(a) };
@@ -104,7 +102,7 @@ fn run_circuit_2_mock(input_num: u64) {
     println!("Circuit 2 Verified Output: {:?}", public_inputs);
 }
 
-fn get_user_input() -> u64 {
+fn get_user_integer() -> u64 {
     let mut input_string = String::new();
     println!("Enter a positive integer");
     io::stdin()
@@ -124,7 +122,34 @@ fn get_user_input() -> u64 {
     input_int
 }
 
+fn get_user_command() -> u64 {
+    let mut input_string = String::new();
+    let user_prompt_str = "Press: 
+    0 - generate parameter file (params.bin)
+    1 - run circuit 1 with full prover and verifier
+    2 - run circuit 1 with MockProver
+    3 - run circuit 2 with MockProver
+    9 - quit";
+    println!("{}", &user_prompt_str);
+    io::stdin()
+        .read_line(&mut input_string)
+        .expect("input failed");
+
+    let input_command: u64;
+    match input_string.trim().parse::<u64>() {
+        Ok(i) => input_command = i,
+        Err(e) => {
+            println!("Error - incorrect input: {}", e);
+            input_command = 0
+        }
+    };
+
+    // println!("User inputed: {}", input_command);
+    input_command
+}
+
 fn write_params() {
+    const K: u32 = 14;
     let params_filename = "params.bin".to_string();
     println!("Writing {}", params_filename);
     let mut params_file = File::create(&params_filename).unwrap();
@@ -134,12 +159,24 @@ fn write_params() {
 }
 
 fn main() {
-    let input = get_user_input();
-
-    run_circuit_1(input);
-
-    run_circuit_1_mock(input);
-    run_circuit_2_mock(input);
-
-    write_params()
+    loop {
+        let input_command = get_user_command();
+        match input_command {
+            0 => write_params(),
+            1 => {
+                let input_int = get_user_integer();
+                run_circuit_1(input_int)
+            }
+            2 => {
+                let input_int = get_user_integer();
+                run_circuit_1_mock(input_int)
+            }
+            3 => {
+                let input_int = get_user_integer();
+                run_circuit_2_mock(input_int)
+            }
+            9 => break,
+            _ => println!("Command not recognize"),
+        }
+    }
 }
