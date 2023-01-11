@@ -4712,7 +4712,7 @@ gzip-size@^6.0.0:
   dependencies:
     duplexer "^0.1.2"
 
-halo2_playground@./public/pkg:
+halo2-wasm-demo@./public/pkg:
   version "0.1.0"
 
 handle-thing@^2.0.0:

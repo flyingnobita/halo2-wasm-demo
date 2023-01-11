@@ -1,6 +1,6 @@
-# Halo2 WASM Demo
+# Halo2 Wasm Demo
 
-This repo demonstrates how to compile halo2 circuits into WASM and incorporate them to a react app. It is based on the [halo2 WASM guide](https://zcash.github.io/halo2/user/wasm-port.html) which in turn is based on [Zordle](https://github.com/nalinbhardwaj/zordle).
+This repo demonstrates how to compile halo2 circuits into Wasm and incorporate them to a react app. It is based on the [halo2 Wasm guide](https://zcash.github.io/halo2/user/wasm-port.html) which in turn is based on [Zordle](https://github.com/nalinbhardwaj/zordle).
 
 ## Circuits
 
@@ -13,7 +13,7 @@ There are two simple circuits:
 
 #### Build
 
-> halo2 uses Rayon for parallel computations. In order to use Rayon in wasm, the binding [`wasm-bindgen-rayon`](https://github.com/GoogleChromeLabs/wasm-bindgen-rayon) is required. `wasm-bindgen-rayon` requires setting the `build-std` flag in `.cargo/config`, which in turn require setting the build architecture `target` in the same [file](https://github.com/flyingnobita/halo2-playground/blob/6cea21c739cdf56a9b27fd236b4102e9249ca9e0/circuits/.cargo/config.toml#L12). You need to fill in the appropriate target of your computer before using this crate.
+> halo2 uses Rayon for parallel computations. In order to use Rayon in Wasm, the binding [`wasm-bindgen-rayon`](https://github.com/GoogleChromeLabs/wasm-bindgen-rayon) is required. `wasm-bindgen-rayon` requires setting the `build-std` flag in `.cargo/config`, which in turn require setting the build architecture `target` in the same [file](https://github.com/flyingnobita/halo2-wasm-demo/blob/6cea21c739cdf56a9b27fd236b4102e9249ca9e0/circuits/.cargo/config.toml#L12). You need to fill in the appropriate target of your computer before using this crate.
 
 ```rust
 cargo build
@@ -48,15 +48,15 @@ yarn
 #### Link Package (For Development)
 
 ```bash
-# Remove halo2_playground from package.json so changes will be picked up right
+# Remove halo2-wasm-demo from package.json so changes will be picked up right
 # away during development
-yarn remove halo2_playground
+yarn remove halo2-wasm-demo
 
 cd public/pkg
 yarn link
 
-cd ../..  # i.e. in /halo2-playground/react_app
-yarn link halo2_playground
+cd ../..  # i.e. in /halo2-wasm-demo/react_app
+yarn link halo2-wasm-demo
 ```
 
 #### Add Local Package (For Release w/o publishing package to NPM)
@@ -83,4 +83,8 @@ This can be changed in the webapp under "Thread Pool Size".
 
 #### SharedArrayBuffer
 
-WASM workers uses a brower feature called `SharedArrayBuffer` that is disabled by default for sercuity reasons. While this is enabled by default during development in `yarn start`, it needs to be explicitly enabled in the production HTTP server by allowing COOP (Cross Origin Opener Policy) and COEP (Cross Origin Embedder Policy). For Netlify, this is done in [`netlify.toml`](./netlify.toml).
+Wasm workers uses a brower feature called `SharedArrayBuffer` that is disabled by default for sercuity reasons. While this is enabled by default during development in `yarn start`, it needs to be explicitly enabled in the production HTTP server by allowing COOP (Cross Origin Opener Policy) and COEP (Cross Origin Embedder Policy). For Netlify, this is done in [`netlify.toml`](./netlify.toml).
+
+#### Apple Safari
+
+As stated in the [halo2 Book](https://zcash.github.io/halo2/user/wasm-port.html#safari), Safari is not currently supported.

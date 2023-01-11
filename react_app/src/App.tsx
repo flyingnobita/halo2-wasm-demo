@@ -21,6 +21,7 @@ import {
   DivFlexFormContainer,
   DivFlexForm,
   ZKDetailStatus,
+  SafariWarning,
 } from "./components";
 
 import githubLogo from "./assets/images/GitHub-Mark-120px-plus.png";
@@ -133,7 +134,11 @@ function App() {
               <ZkDetails>
                 <DivFlexInputContainer>
                   <label>
-                    Thread Pool Size (Change to 4 if running on Apple M1):{" "}
+                    Thread Pool Size (Change to 4 if running on Apple M1. See{" "}
+                    <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1228686&q=reporter%3Arreverser%40google.com&can=1">
+                      here
+                    </a>
+                    ):
                   </label>
                   <DivFlexInput
                     type="number"
@@ -174,11 +179,18 @@ function App() {
                 )}
                 <DetailButton onClick={handleButtonVerify}>Verify</DetailButton>
                 <ZKDetailStatus>{zkStatus}</ZKDetailStatus>
+                <SafariWarning>
+                  Note: As stated in the{" "}
+                  <a href="https://zcash.github.io/halo2/user/wasm-port.html#safari">
+                    halo2 Book
+                  </a>
+                  , Safari is not currently supported.
+                </SafariWarning>
               </ZkDetails>
             </Details>
           </DivLeftAlign>
           <LinkLogoContainer>
-            <Link href="https://github.com/flyingnobita/halo2-playground">
+            <Link href="https://github.com/flyingnobita/halo2-wasm-demo">
               <LinkLogo src={githubLogo} alt="github" />
             </Link>
           </LinkLogoContainer>

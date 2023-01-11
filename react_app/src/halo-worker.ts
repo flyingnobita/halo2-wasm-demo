@@ -7,7 +7,7 @@ async function prove(input: bigint, threadPoolSize: number) {
     console.log("params", params);
 
     // start proving
-    const multiThread = await import('halo2_playground');
+    const multiThread = await import('halo2-wasm-demo');
     await multiThread.default();
     await multiThread.initThreadPool(threadPoolSize);
     multiThread.init_panic_hook();
@@ -22,7 +22,7 @@ async function verify(input: bigint, proof: any, threadPoolSize: number) {
     console.log("params", params);
 
     // start verification
-    const multiThread = await import('halo2_playground');
+    const multiThread = await import('halo2-wasm-demo');
     await multiThread.default();
     await multiThread.initThreadPool(threadPoolSize);
     console.log("Starting verify()...")
@@ -32,7 +32,7 @@ async function verify(input: bigint, proof: any, threadPoolSize: number) {
 
 async function fetch_params() {
 
-    const params_file = "https://raw.githubusercontent.com/flyingnobita/halo2-playground/master/react_app/public/params.bin"
+    const params_file = "https://raw.githubusercontent.com/flyingnobita/halo2-wasm-demo/master/react_app/public/params.bin"
 
     const response = await fetch(params_file);
     const bytes = await response.arrayBuffer();

@@ -31,7 +31,7 @@
     "eslint-webpack-plugin": "^3.1.1",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",
-    "halo2_playground": "./public/pkg",
+    "halo2-wasm-demo": "./public/pkg",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.3",
@@ -69,7 +69,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "build:wasm": "cd ../circuits && wasm-pack build --target web --out-dir ../react_app/public/pkg && cp params.bin ../react_app/public && cd ../react_app && yarn link halo2_playground",
+    "build:wasm": "cd ../circuits && wasm-pack build --target web --out-dir ../react_app/public/pkg && cp params.bin ../react_app/public && cd ../react_app && yarn link halo2-wasm-demo",
     "dev": "yarn build:wasm && yarn start"
   },
   "eslintConfig": {

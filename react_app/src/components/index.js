@@ -332,3 +332,7 @@ export const ToggleContainer = styled.div`
   flex-direction: row;
   justify-content: center;
 `;
+
+export const SafariWarning = styled.div`
+  white-space: nowrap;
+`;
