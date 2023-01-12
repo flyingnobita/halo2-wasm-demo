@@ -1,5 +1,7 @@
 # Halo2 Wasm Demo
 
+[Demo](https://halo2-wasm-demo.flyingnobita.com)
+
 This repo demonstrates how to compile halo2 circuits into Wasm and incorporate them to a react app. It is based on the [halo2 Wasm guide](https://zcash.github.io/halo2/user/wasm-port.html) which in turn is based on [Zordle](https://github.com/nalinbhardwaj/zordle).
 
 ## Circuits
