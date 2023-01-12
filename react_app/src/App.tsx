@@ -61,24 +61,33 @@ function App() {
     const t_prove = prove_finish - start;
     console.log("Time to prove (s): ", t_prove / 1000);
     console.log("test.prove(): ", proof);
-    // showZkStatus("test.prove(): " + proof);
-    showZkStatus("Proof successfully generated");
+    showZkStatus(
+      "Proof successfully generated. \nTime to prove (s): " +
+        round(t_prove / 1000, 1)
+    );
     return proof;
   }
 
   async function verify() {
     showZkStatus("Verifying proof...");
     console.log("verifierInput: " + verifierInput);
+    const start = performance.now();
     const verification = await workerApi.verify(
       BigInt(verifierInput),
       proof,
       parseInt(threadPoolSize)
     );
     const verify_finish = performance.now();
-    // const t_verify = verify_finish - prove_finish;
-    // console.log("Time to verify (s): ", t_verify / 1000);
+    const t_verify = verify_finish - start;
+    console.log("Time to verify (s): ", t_verify / 1000);
     console.log("Verification: ", verification);
-    showZkStatus("Verification: " + String(verification));
+    showZkStatus(
+      "Verification: " +
+        String(verification) +
+        ". \n" +
+        "Time to verify (s): " +
+        round(t_verify / 1000, 1)
+    );
   }
 
   async function handleButtonProve(event: React.ChangeEvent<HTMLInputElement>) {
@@ -127,7 +136,7 @@ function App() {
     <div className="App">
       <Container>
         <Body>
-          <Title>halo2</Title>
+          <Title>halo2 Wasm Demo</Title>
           <DivLeftAlign>
             <Details>
               <Summary>Prove You Know The Square</Summary>
@@ -198,6 +207,11 @@ function App() {
       </Container>
     </div>
   );
+}
+
+function round(value: number, precision: number) {
+  var multiplier = Math.pow(10, precision || 0);
+  return Math.round(value * multiplier) / multiplier;
 }
 
 export default App;

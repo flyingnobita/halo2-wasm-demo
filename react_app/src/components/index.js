@@ -273,6 +273,7 @@ export const ZKDetailStatus = styled.div`
   font-family: monospace;
   font-size: 1em;
   margin: 30px 0px 20px 0px;
+  white-space: pre-line;
 `;
 
 export const ToggleWrapper = styled.div`
