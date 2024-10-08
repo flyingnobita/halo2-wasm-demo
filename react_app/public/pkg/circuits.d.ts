@@ -55,14 +55,14 @@ export interface InitOutput {
   readonly wbg_rayon_start_worker: (a: number) => void;
   readonly initThreadPool: (a: number) => number;
   readonly memory: WebAssembly.Memory;
-  readonly __wbindgen_malloc: (a: number) => number;
-  readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
+  readonly __wbindgen_malloc: (a: number, b: number) => number;
+  readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
   readonly __wbindgen_export_3: WebAssembly.Table;
-  readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h8be162d4a8636ca8: (a: number, b: number, c: number) => void;
+  readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h1e88871afbf88eeb: (a: number, b: number, c: number) => void;
   readonly __wbindgen_exn_store: (a: number) => void;
-  readonly wasm_bindgen__convert__closures__invoke2_mut__h28809c7a9902b8d3: (a: number, b: number, c: number, d: number) => void;
-  readonly __wbindgen_free: (a: number, b: number) => void;
-  readonly __wbindgen_thread_destroy: () => void;
+  readonly wasm_bindgen__convert__closures__invoke2_mut__h8a5a19da7a480f15: (a: number, b: number, c: number, d: number) => void;
+  readonly __wbindgen_free: (a: number, b: number, c: number) => void;
+  readonly __wbindgen_thread_destroy: (a: number, b: number) => void;
   readonly __wbindgen_start: () => void;
 }
 
@@ -87,4 +87,4 @@ export function initSync(module: SyncInitInput, maybe_memory?: WebAssembly.Memor
 *
 * @returns {Promise<InitOutput>}
 */
-export default function init (module_or_path?: InitInput | Promise<InitInput>, maybe_memory?: WebAssembly.Memory): Promise<InitOutput>;
+export default function __wbg_init (module_or_path?: InitInput | Promise<InitInput>, maybe_memory?: WebAssembly.Memory): Promise<InitOutput>;

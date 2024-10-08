@@ -8,5 +8,7 @@
   ],
   "module": "circuits.js",
   "types": "circuits.d.ts",
-  "sideEffects": false
+  "sideEffects": [
+    "./snippets/*"
+  ]
 }

@@ -47,6 +47,20 @@ cargo test -- --nocapture
 yarn
 ```
 
+#### Build circuit wasm files into `\pkg` and copy to `react_app\public\pkg`
+
+```bash
+# from project root /halo2-wasm-demo/
+wasm-pack build --target web --out-dir pkg
+
+# remove existing wasm files
+rm -rf react_app/public/pkg
+
+# copy new pkg into /react_app/public/pkg
+mkdir react_app/public/pkg
+cp -a circuits/pkg/. react_app/public/pkg
+```
+
 #### Link Package (For Development)
 
 ```bash
